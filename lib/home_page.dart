@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import 'flexible.dart';
 
@@ -12,73 +13,62 @@ class HomePage extends StatelessWidget {
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark,
       ),
-      child: Scaffold(
-        body: DefaultTabController(
-          length: 2,
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverPersistentHeader(
-                pinned: true,
-                floating: false,
-                delegate: NetworkingPageHeader(
-                  minExtent:
-                      kToolbarHeight + MediaQuery.of(context).padding.top,
-                  maxExtent: 250.0,
-                ),
-              ),
-              SliverPersistentHeader(
-                delegate: SliverAppBarDelegate(
-                  TabBar(
-                    labelColor: Colors.black87,
-                    unselectedLabelColor: Colors.grey,
-                    tabs: [
-                      Tab(icon: Icon(Icons.info), text: "Tab 1"),
-                      Tab(icon: Icon(Icons.lightbulb_outline), text: "Tab 2"),
-                      Tab(icon: Icon(Icons.lightbulb_outline), text: "Tab 3"),
-                    ],
+      child: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          body: NestedScrollView(
+            headerSliverBuilder: (context, value) {
+              double minExtent =
+                  kToolbarHeight + MediaQuery.of(context).padding.top;
+              return [
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: NetworkingPageHeader(
+                    minExtent: minExtent,
+                    maxExtent: 250.0,
                   ),
                 ),
-                pinned: true,
-              ),
-              SliverFixedExtentList(
-                itemExtent: 50.0,
-                delegate: SliverChildBuilderDelegate((context, index) {
-                  String _title = "List item $index";
-                  return ListTile(
-                    title: Text(_title),
-                  );
-                }),
-              ),
-            ],
+                SliverPersistentHeader(
+                  pinned: true,
+                  delegate: SliverAppBarDelegate(
+                    TabBar(
+                      labelColor: Colors.black87,
+                      unselectedLabelColor: Colors.grey,
+                      tabs: [
+                        Tab(icon: Icon(Icons.info), text: "Tab 1"),
+                        Tab(icon: Icon(Icons.lightbulb_outline), text: "Tab 2"),
+                        Tab(icon: Icon(Icons.lightbulb_outline), text: "Tab 3"),
+                      ],
+                    ),
+                  ),
+                ),
+              ];
+            },
+            body: TabBarView(
+              children: [
+                menuCreate(),
+                menuCreate(),
+                menuCreate(),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
-}
 
-class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  SliverAppBarDelegate(this._tabBar);
-
-  final TabBar _tabBar;
-
-  @override
-  double get minExtent => _tabBar.preferredSize.height;
-  @override
-  double get maxExtent => _tabBar.preferredSize.height;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return new Material(
-      color: Theme.of(context).canvasColor,
-      elevation: 4,
-      child: _tabBar,
+  Container menuCreate() {
+    return Container(
+      child: Column(
+        children: List.generate(50, (index) {
+          String _title = "List item $index";
+          return ListTile(
+              onTap: (() {
+                print('$_title');
+              }),
+              title: Text(_title));
+        }),
+      ).scrollVertical(),
     );
-  }
-
-  @override
-  bool shouldRebuild(SliverAppBarDelegate oldDelegate) {
-    return false;
   }
 }

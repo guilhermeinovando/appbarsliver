@@ -50,7 +50,6 @@ class NetworkingPageHeader extends SliverPersistentHeaderDelegate {
                             padding: EdgeInsets.only(
                               top: razaoScroll(
                                     shrinkOffset,
-                                    extent: minExtent / 2,
                                   ) *
                                   120,
                             ),
@@ -148,5 +147,31 @@ class NetworkingPageHeader extends SliverPersistentHeaderDelegate {
   @override
   bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) {
     return true;
+  }
+}
+
+class SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
+  SliverAppBarDelegate(this._tabBar);
+
+  final TabBar _tabBar;
+
+  @override
+  double get minExtent => _tabBar.preferredSize.height;
+  @override
+  double get maxExtent => _tabBar.preferredSize.height;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return new Material(
+      color: Theme.of(context).canvasColor,
+      elevation: 4,
+      child: _tabBar,
+    );
+  }
+
+  @override
+  bool shouldRebuild(SliverAppBarDelegate oldDelegate) {
+    return false;
   }
 }
