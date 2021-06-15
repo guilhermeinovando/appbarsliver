@@ -15,8 +15,8 @@ class HomePage extends StatelessWidget {
               floating: false,
               delegate: NetworkingPageHeader(
                 minExtent:
-                    kToolbarHeight + MediaQuery.of(context).padding.top + 5,
-                maxExtent: 250.0 + 50,
+                    kToolbarHeight + MediaQuery.of(context).padding.top + 10,
+                maxExtent: 250.0,
               ),
             ),
             SliverPersistentHeader(
