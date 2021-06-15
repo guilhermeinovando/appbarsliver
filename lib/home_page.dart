@@ -14,7 +14,8 @@ class HomePage extends StatelessWidget {
               pinned: true,
               floating: false,
               delegate: NetworkingPageHeader(
-                minExtent: kToolbarHeight + MediaQuery.of(context).padding.top,
+                minExtent:
+                    kToolbarHeight + MediaQuery.of(context).padding.top + 10,
                 maxExtent: 250.0,
               ),
             ),
