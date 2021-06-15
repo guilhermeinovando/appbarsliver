@@ -48,10 +48,7 @@ class NetworkingPageHeader extends SliverPersistentHeaderDelegate {
                           ),
                           Padding(
                             padding: EdgeInsets.only(
-                              top: razaoScroll(
-                                    shrinkOffset,
-                                  ) *
-                                  120,
+                              top: razaoScroll(shrinkOffset) * 120,
                             ),
                             child: nome(shrinkOffset),
                           ),

@@ -30,6 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   velocity_x: ^3.2.0
   flutter_sticky_header: ^0.6.0
+  extended_nested_scroll_view: ^3.0.0
 
 dev_dependencies:
   flutter_test:
