@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       ),
       child: Scaffold(
         body: DefaultTabController(
-          length: 3,
+          length: 2,
           child: CustomScrollView(
             slivers: <Widget>[
               SliverPersistentHeader(
@@ -40,42 +40,14 @@ class HomePage extends StatelessWidget {
                 ),
                 pinned: true,
               ),
-              TabBarView(
-                children: [
-                  Container(
-                    child: ListView.builder(itemBuilder: (_, index) {
-                      String _title = "List item $index";
-                      return ListTile(
-                        title: Text(_title),
-                      );
-                    }),
-                  ),
-                  Container(
-                    child: ListView.builder(itemBuilder: (_, index) {
-                      String _title = "List item $index";
-                      return ListTile(
-                        title: Text(_title),
-                      );
-                    }),
-                  ),
-                  Container(
-                    child: ListView.builder(itemBuilder: (_, index) {
-                      String _title = "List item $index";
-                      return ListTile(
-                        title: Text(_title),
-                      );
-                    }),
-                  ),
-                  // SliverFixedExtentList(
-                  //   itemExtent: 50.0,
-                  //   delegate: SliverChildBuilderDelegate((context, index) {
-                  //     String _title = "List item $index";
-                  //     return ListTile(
-                  //       title: Text(_title),
-                  //     );
-                  //   }),
-                  // ),
-                ],
+              SliverFixedExtentList(
+                itemExtent: 50.0,
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  String _title = "List item $index";
+                  return ListTile(
+                    title: Text(_title),
+                  );
+                }),
               ),
             ],
           ),
